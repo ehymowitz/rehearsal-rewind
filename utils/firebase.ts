@@ -1,6 +1,5 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getDatabase, onValue, ref, set } from "firebase/database";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -19,29 +18,4 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
-
-// Write Data
-export const writeRehearsal = (band: string, date: string, link: string) => {
-  set(ref(database, "rehearsals/" + band), {
-    band,
-    date,
-    link,
-  })
-    .then(() => {
-      console.log("data saved");
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
-
-// Read Data
-export const readRehearsal = (band: string) => {
-  const rehersal = ref(database, "rehearsals/" + band);
-  onValue(rehersal, (snapshot) => {
-    const data = snapshot.val();
-    console.log(data);
-  });
-};
+export const app = initializeApp(firebaseConfig);
